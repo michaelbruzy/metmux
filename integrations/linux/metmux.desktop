@@ -1,0 +1,14 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+[Desktop Entry]
+Type=Application
+Name=Edit metadata
+Name[fr]=Éditer les métadonnées
+Comment=Edit the file's metadata with metmux
+Comment[fr]=Éditer les métadonnées du fichier avec metmux
+# Fix the path of metmux.py below (a single occurrence, after M=) :
+Exec=sh -c "M=\\"/home/USER/metmux/metmux.py\\"; if [ ! -f \\"\\$M\\" ]; then echo \\"metmux.py not found: \\$M\\"; echo \\"Fix the path in the .desktop file.\\"; sleep 5; exit 1; fi; PY=\\$(command -v python3 || command -v python); exec \\"\\$PY\\" \\"\\$M\\" --mode=ask \\"\\$@\\"" sh %F
+Terminal=true
+MimeType=application/octet-stream;
+Icon=document-properties
+Categories=Utility;
+NoDisplay=false

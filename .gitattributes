@@ -1,0 +1,11 @@
+# Windows integration files keep their native format whatever the contributor's
+# autocrlf setting: .bat must stay CRLF, .reg is UTF-16 (treat as binary).
+*.bat text eol=crlf
+*.reg binary
+
+# Unix-side scripts must stay LF whatever the contributor's autocrlf setting:
+# a CRLF shebang breaks ("bad interpreter") once copied to Linux/macOS.
+# integrations/linux/* also covers the extensionless "Edit metadata" script.
+integrations/linux/* text eol=lf
+*.sh text eol=lf
+*.wflow text eol=lf

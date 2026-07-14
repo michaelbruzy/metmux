@@ -1,0 +1,3 @@
+include README.md
+include README.fr.md
+include tests/metmux_test.py

@@ -1,0 +1,39 @@
+#!/bin/bash
+# SPDX-License-Identifier: GPL-3.0-or-later
+# Called by the Nautilus/Nemo/Caja context menu (Scripts submenu).
+# Replace the path below with the real path of your metmux.py file :
+METMUX="$HOME/metmux/metmux.py"
+
+if [ ! -f "$METMUX" ]; then
+  notify-send "metmux" "metmux.py not found: $METMUX — fix the path in the script." 2>/dev/null \
+    || echo "metmux: metmux.py not found ($METMUX), fix the path." >&2
+  exit 1
+fi
+
+SELECTED="${NAUTILUS_SCRIPT_SELECTED_FILE_PATHS:-$NEMO_SCRIPT_SELECTED_FILE_PATHS}"
+# $SELECTED already ends with a newline: a here-string would add a second one and mapfile would append a phantom empty element.
+mapfile -t files < <(printf '%s' "$SELECTED")
+[ -z "${files[0]}" ] && files=("$@")
+[ -z "${files[0]}" ] && exit 0
+
+# Command and arguments stay separate (never one string): spaces and accents survive.
+run() {
+  if   command -v gnome-terminal      >/dev/null 2>&1; then exec gnome-terminal -- "$@"
+  elif command -v ptyxis              >/dev/null 2>&1; then exec ptyxis -- "$@"
+  elif command -v konsole             >/dev/null 2>&1; then exec konsole -e "$@"
+  elif command -v xfce4-terminal      >/dev/null 2>&1; then exec xfce4-terminal -x "$@"
+  elif command -v mate-terminal       >/dev/null 2>&1; then exec mate-terminal -x "$@"
+  elif command -v xterm               >/dev/null 2>&1; then exec xterm -e "$@"
+  elif command -v x-terminal-emulator >/dev/null 2>&1; then exec x-terminal-emulator -e "$@"
+  else notify-send "metmux" "No graphical terminal found." 2>/dev/null; exit 1
+  fi
+}
+
+PY="$(command -v python3 || command -v python)"
+if [ -z "$PY" ]; then
+  notify-send "metmux" "Python not found (neither python3 nor python)." 2>/dev/null \
+    || echo "metmux: Python not found (neither python3 nor python)." >&2
+  exit 1
+fi
+
+run "$PY" "$METMUX" --mode=ask "${files[@]}"

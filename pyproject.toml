@@ -1,0 +1,64 @@
+# Packaging for PyPI. metmux stays a single file: the wheel ships metmux.py as a
+# top-level module and exposes the `metmux` command. Never split the module for
+# packaging aesthetics.
+
+[build-system]
+# setuptools >= 77: first version accepting the SPDX license expression below (PEP 639).
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "metmux"
+# The one-line description used everywhere the project appears (GitHub About, PyPI).
+description = "Interactive, multi-format, command-line metadata editor with right-click integration. Available on Windows, macOS and Linux."
+# README.md cannot be the PyPI page: its images and links are repository-relative
+# and would break on pypi.org. README.pypi.md carries absolute GitHub URLs instead.
+readme = "README.pypi.md"
+license = "GPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{ name = "Michaël Bruzy" }]
+# Documented floor, tested in CI (tests.yml) and confirmed by vermin.
+requires-python = ">=3.8"
+# mutagen is the audio engine: pure Python, so pip can bring it and audio works out
+# of the box. exiftool and ffmpeg are external programs pip cannot install; metmux
+# detects their absence at startup and says how to install them.
+dependencies = ["mutagen"]
+keywords = [
+    "metadata", "exif", "id3", "xmp", "tags",
+    "exiftool", "ffmpeg", "mutagen", "cli", "tui", "privacy",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia",
+    "Topic :: Utilities",
+]
+# The version lives in metmux.py (__version__) only; see [tool.setuptools.dynamic].
+dynamic = ["version"]
+
+[project.urls]
+Homepage = "https://github.com/michaelbruzy/metmux"
+Documentation = "https://github.com/michaelbruzy/metmux#readme"
+Issues = "https://github.com/michaelbruzy/metmux/issues"
+
+[project.scripts]
+metmux = "metmux:main"
+
+[tool.setuptools]
+py-modules = ["metmux"]
+
+[tool.setuptools.dynamic]
+# Single source of truth: setuptools reads the literal statically (no import, so the
+# module-level tool detection in metmux.py does not run at build time).
+version = { attr = "metmux.__version__" }

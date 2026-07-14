@@ -1,0 +1,54 @@
+# Python caches and bytecode
+__pycache__/
+.pytest_cache/
+.hypothesis/
+*.py[cod]
+
+# Packaging build artifacts (python -m build)
+build/
+dist/
+*.egg-info/
+
+# Virtual environments and local dev tools
+.venv/
+.venv311/
+.tools/
+env/
+venv/
+
+# Backup and temporary files
+*.bak
+*.orig
+*.tmp
+# metmux atomic-write sidecar ("X.metmux_tmp.mkv"); "X.ext.tmp" is covered by *.tmp
+*.metmux_tmp*
+
+# OS system files — macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+
+# OS system files — Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# OS system files — Linux
+*~
+.directory
+.Trash-*
+.nfs*
+.fuse_hidden*
+
+# Editor swap files
+*.swp
+*.swo
+
+# Private folder (not published)
+local/
+
+# Local preferences (recreated as needed by metmux)
+config.json

@@ -1,0 +1,38 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  pytest:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # Documented floor. Pinned to 24.04: Python 3.8 (EOL) gets no builds for newer images, so "ubuntu-latest" would break at its next migration.
+          - python-version: "3.8"
+            runner: ubuntu-24.04
+          - python-version: "3.12"
+            runner: ubuntu-latest
+    runs-on: ${{ matrix.runner }}
+    steps:
+      - uses: actions/checkout@v4
+
+      # exiftool and ffmpeg are required by part of the tests; without them they skip instead of proving the full contract.
+      - name: Install exiftool + ffmpeg
+        run: sudo apt-get update && sudo apt-get install -y libimage-exiftool-perl ffmpeg
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install test dependencies
+        run: pip install pytest mutagen hypothesis
+
+      # The command the README declares imperative, plus -v (leaves no artifact behind).
+      - name: Run tests
+        run: HYPOTHESIS_STORAGE_DIRECTORY=/tmp/hypothesis python -B -m pytest tests/ -p no:cacheprovider -v
