@@ -499,7 +499,7 @@ Le clic droit reste l’usage pour lequel `metmux` a été pensé, mais tout est
 1. **Récupérer [`metmux.py`](metmux.py) seul** :
    - **Sans git** : téléchargez le seul fichier [`metmux.py`](metmux.py) via l’icône « Download raw file ».
    - **Avec git** : `git clone https://github.com/michaelbruzy/metmux` (récupère le dépôt entier ; seul `metmux.py` sert ici).
-   - **Avec pip** : `pip3 install metmux` installe la commande `metmux`, mutagen compris. Si votre système refuse (« externally managed »), passez par [pipx](https://pipx.pypa.io) : `pipx install metmux`.
+   - **Avec [pipx](https://pipx.pypa.io)** : `pipx install metmux` installe la commande `metmux` (mutagen compris) dans un environnement isolé, la voie recommandée pour un outil en ligne de commande. Sinon `pip3 install metmux` l’installe dans votre environnement Python courant.
 
 2. **Lancer metmux** sur un ou plusieurs fichiers, en choisissant le mode :
 

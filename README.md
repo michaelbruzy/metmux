@@ -497,7 +497,7 @@ Right-click remains the usage `metmux` was designed for, but everything is also 
 1. **Get [`metmux.py`](metmux.py) alone**:
    - **Without git**: download the single [`metmux.py`](metmux.py) file via the "Download raw file" icon.
    - **With git**: `git clone https://github.com/michaelbruzy/metmux` (gets the whole repository; only `metmux.py` is used here).
-   - **With pip**: `pip3 install metmux` installs the `metmux` command, mutagen included. If your system refuses ("externally managed"), go through [pipx](https://pipx.pypa.io): `pipx install metmux`.
+   - **With [pipx](https://pipx.pypa.io)**: `pipx install metmux` installs the `metmux` command (mutagen included) in an isolated environment, the recommended way for a command-line tool. Otherwise `pip3 install metmux` installs it into your current Python environment.
 
 2. **Launch metmux** on one or more files, choosing the mode:
 

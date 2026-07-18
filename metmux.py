@@ -754,7 +754,7 @@ _UI = {
                    "fr": "PDF : les métadonnées sont neutralisées mais restent techniquement "
                          "récupérables dans le fichier (limite d'exiftool)."},
     # --- CLI (main) ---
-    "cli_help": {"en": ("Usage: metmux.py --mode=MODE file [file ...]\n"
+    "cli_help": {"en": ("Usage: metmux --mode=MODE file [file ...]\n"
                         "Modes:\n"
                         "  single (default)  file-by-file editing\n"
                         "  group             batch editing (same fields on all the files)\n"
@@ -765,7 +765,7 @@ _UI = {
                         "                    (used by the Windows context menu)\n"
                         "  -V, --version     print the version and quit\n"
                         "  -h, --help        show this help"),
-                 "fr": ("Utilisation : metmux.py --mode=MODE fichier [fichier ...]\n"
+                 "fr": ("Utilisation : metmux --mode=MODE fichier [fichier ...]\n"
                         "Modes :\n"
                         "  single (défaut)   édition fichier par fichier\n"
                         "  group             édition en lot (mêmes champs sur tous les fichiers)\n"
